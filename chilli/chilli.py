@@ -488,21 +488,17 @@ def sn_creator_no_drop_back(sn_cutoff_list):
 
 def set_cache(data, filename):
     '''Filename should be full path'''
-    import os
-    import shelve
+    import json
 
-    d = shelve.open(filename)
-    d[os.path.basename(filename)] = data
-    d.close()
+    with open(filename, 'wb') as fp:
+        json.dump(data, fp)
 
 def get_cache(filename):
     '''Filename should be full path'''
-    import os
-    import shelve
+    import json
 
-    d = shelve.open(filename)
-    data = d[os.path.basename(filename)]
-    d.close()
+    with open(filename, 'rb') as fp:
+        data = json.load(fp)
 
     return data
 
